@@ -1,0 +1,22 @@
+<div class="nasa-container">
+  <h2>Image astronomique du jour (NASA)</h2>
+  
+  <div *ngIf="apodData" class="apod-card">
+    <h3>{{ apodData.title }}</h3>
+    <p>Date: {{ apodData.date }}</p>
+    
+    <div *ngIf="apodData.media_type === 'image'">
+      <img [src]="apodData.url" [alt]="apodData.title" class="apod-image">
+    </div>
+    
+    <div *ngIf="apodData.media_type === 'video'">
+      <iframe [src]="apodData.url | safeUrl" frameborder="0" allowfullscreen></iframe>
+    </div>
+    
+    <p class="explanation">{{ apodData.explanation }}</p>
+  </div>
+
+  <div *ngIf="!apodData" class="loading">
+    Chargement des données NASA...
+  </div>
+</div>

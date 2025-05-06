@@ -1,0 +1,47 @@
+<div class="search-container">
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Rechercher un personnage</mat-label>
+    <input matInput 
+          [(ngModel)]="searchTerm" 
+          (input)="onSearch()"
+          placeholder="Ex: Rick, Morty">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+
+<div *ngIf="!isLoading" class="character-groups-container">
+  <div *ngFor="let group of characterGroups" class="character-group">
+    <h2 class="group-title">
+      {{ group.name }} 
+      <span class="version-count">({{ group.characters.length }} versions)</span>
+    </h2>
+    
+    <div class="character-cards">
+      <mat-card *ngFor="let character of group.characters; trackBy: trackByCharacterId" 
+                class="character-card compact">
+        <img mat-card-image [src]="character.image" [alt]="character.name">
+        
+        <mat-card-content>
+          <h3>{{ character.name }}</h3>
+          
+          <div class="character-info">
+            <p><strong>Statut:</strong> 
+              <span [class.alive]="character.status === 'Alive'"
+                    [class.dead]="character.status === 'Dead'">
+                {{ character.status }}
+              </span>
+            </p>
+            <p><strong>Espèce:</strong> {{ character.species }}</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div *ngIf="characterGroups.length === 0" class="no-results">
+    <mat-icon>search_off</mat-icon>
+    <p>Aucun personnage trouvé pour "{{ searchTerm }}"</p>
+  </div>
+</div>

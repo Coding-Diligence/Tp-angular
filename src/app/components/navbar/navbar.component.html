@@ -1,0 +1,9 @@
+<nav class="navbar">
+  <div class="navbar-brand">Tp Angular Kilian POUSSARD</div>
+  <div class="navbar-links">
+    <a *ngIf="authService.isLoggedIn | async" routerLink="/rick-morty" routerLinkActive="active">Rick & Morty</a>
+    <a *ngIf="authService.isLoggedIn | async" routerLink="/nasa" routerLinkActive="active">NASA</a>
+    <a *ngIf="!(authService.isLoggedIn | async)" routerLink="/login" routerLinkActive="active">Login</a>
+    <a *ngIf="authService.isLoggedIn | async" (click)="logout()" class="logout-link">Déconnexion</a>
+  </div>
+</nav>
